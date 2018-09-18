@@ -36,8 +36,6 @@ def sort(arr):
     return arr
 
 
-
-
 arr = []
 for j in range(100):
     arr.append(rd.randint(0,2))
