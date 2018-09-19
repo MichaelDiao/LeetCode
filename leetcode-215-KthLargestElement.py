@@ -1,4 +1,3 @@
-
 def quickSort(arr, left, right):
     l = left
     r = right
