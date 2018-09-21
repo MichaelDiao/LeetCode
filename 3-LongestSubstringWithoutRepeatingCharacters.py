@@ -82,11 +82,35 @@ def lenthOfLongestSubstr2(s):
     return maxlen
 
 
+# 解法4：ascii表查询法第二种实现  滑动窗口
+# 时间复杂度：O(n)
+# 空间复杂度：O(1)
+# 用时88ms（leetcode平台测试结果）
+def lenthOfLongestSubstr3(s):
+    asc = [0]*256
+    length = len(s)
+    l = 0
+    r = -1 # s[l,r],一开始时，该窗口中0个值
+    maxlen = 0
+    while l < length:
+        if r + 1 < length and asc[ord(s[r+1])] == 0:
+            r += 1
+            asc[ord(s[r])] += 1
+        else:
+            asc[ord(s[l])] -= 1
+            l += 1
+        n = r - l + 1
+        if maxlen < n:
+            maxlen = n
+    return maxlen
+
+
+
 def main():
     s = ["abba", "bbbbb", "pwwkew", "", " "]
     for c in s:
         # print c
-        print lenthOfLongestSubstr2(c)
+        print lenthOfLongestSubstr3(c)
 
 
 main()
