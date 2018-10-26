@@ -56,10 +56,10 @@ class Solution(object):
         # arr is pattern
         size = len(pattern)
         if size == 1:
-            return [0]
+            return [-1]
         len_prefix = 0
         i = 1
-        prefix_table = [-1]*size
+        prefix_table = [0]*size
         while i < size:
             if pattern[i] == pattern[len_prefix]:
                 len_prefix += 1
@@ -71,8 +71,35 @@ class Solution(object):
                 else:
                     prefix_table[i] = len_prefix
                     i += 1
+        prefix_table.pop()
+        prefix_table.insert(0, -1)
+
         return prefix_table
+
+    def kmpSearch(self, haystack, needle):
+        len1 = len(haystack)
+        len2 = len(needle)
+        if len2 == 0:
+            return 0
+        prefix_table = self.getPrefix(needle)
+        i = 0
+        j = 0
+
+        while j < len1:
+            if i == len2 - 1 and needle[i] == haystack[j]:
+                return j - i
+            if needle[i] == haystack[j]:
+                i += 1
+                j += 1
+            else:
+                i = prefix_table[i]
+                if i == -1:
+                    i += 1
+                    j += 1
+        return -1
+
+
 
 
 s = Solution()
-print (s.getPrefix("ababcabaa"))
+print (s.kmpSearch("mississippi","a"))
